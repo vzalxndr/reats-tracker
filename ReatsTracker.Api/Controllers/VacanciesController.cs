@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReatsTracker.Api.Data;
+using ReatsTracker.Api.DTOs;
 using ReatsTracker.Api.Models;
 
 namespace ReatsTracker.Api.Controllers;
@@ -17,9 +18,25 @@ public class VacanciesController:ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<Vacancy>> Get()
+    public async Task<ActionResult<List<VacancyReadDto>>> Get()
     {
-        var vacancies = await _db.Vacancies.ToListAsync();
-        return vacancies;
+        var vacancies = await _db.Vacancies
+            .Select(v => new VacancyReadDto
+            {
+                Id = v.Id,
+                Title = v.Title,
+                Link = v.Link,
+                SalaryStart = v.SalaryStart,
+                SalaryEnd = v.SalaryEnd,
+                Status = v.Status,
+                CreatedAt = v.CreatedAt,
+                AppliedAt = v.AppliedAt,
+                RespondedAt = v.RespondedAt,
+                CompanyName = v.Company.Name,
+                CompanyId = v.CompanyId
+            })
+            .ToListAsync();
+        
+        return Ok(vacancies);
     }
 }
