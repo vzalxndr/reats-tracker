@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: reats_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: reatstrackerdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - reats_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: reats_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    networks:
+      - reats_network
+
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: reats_api
+    environment:
+      # This line passes the database connection to Olekslandr's code
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=reatstrackerdb;Username=postgres;Password=supersecretpassword
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - reats_network
+
+volumes:
+  postgres_data:
+
+networks:
+  reats_network:
+    driver: bridge
