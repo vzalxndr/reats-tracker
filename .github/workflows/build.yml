@@ -1,0 +1,33 @@
+name: .NET Build Pipeline
+
+# When to run this pipeline?
+on:
+  push:
+    branches: [ "main" ] # When merging into main
+  pull_request:
+    branches: [ "main" ] # Every time a PR is created in main
+
+jobs:
+  build:
+    # On which virtual machine to run this (GitHub servers)
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Upload your code to the GitHub server
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. Install .NET 8
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    # 3. Download all packages (NuGet)
+    # NOTE: Replace ReatsTracker.Api/ReatsTracker.Api.csproj with the
+    - name: Restore dependencies
+      run: dotnet restore ReatsTracker.Api/ReatsTracker.Api.csproj
+
+    # 4. Trying to build the project
+    - name: Build project
+      run: dotnet build ReatsTracker.Api/ReatsTracker.Api.csproj --no-restore -c Release
