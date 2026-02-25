@@ -32,4 +32,27 @@ public class CompaniesController:ControllerBase
         
         return Ok(companies);
     }
+
+    [HttpPost]
+    public async Task<ActionResult<CompanyReadDto>> Create(CompanyCreateDto dto)
+    {
+        var company = new Company
+        {
+            Name = dto.Name,
+            Website = dto.Website
+        };
+    
+        await _db.Companies.AddAsync(company);
+        await _db.SaveChangesAsync();
+        
+        var readDto = new CompanyReadDto
+        {
+            Id = company.Id,
+            Name = company.Name,
+            Website = company.Website,
+            VacanciesCount = 0
+        };
+
+        return Ok(readDto); 
+    }
 }
