@@ -6,7 +6,7 @@ public class VacancyReadDto
 {
     public int Id { get; set; }
     
-    public string? Title { get; set; }
+    public string Title { get; set; }
     public string? Link { get; set; }
     
     public int? SalaryStart { get; set; }
