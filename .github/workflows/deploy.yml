@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 env:
-  AZURE_WEBAPP_NAME_STAGING: 'reatstracker-api-staging...' 
+  AZURE_WEBAPP_NAME_STAGING: 'reatstracker-api-staging' 
   AZURE_WEBAPP_NAME_PROD: 'reatstracker-api'            
   DOTNET_VERSION: '8.0.x'
 
