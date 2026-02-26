@@ -6,7 +6,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME_STAGING: 'reatstracker-api-staging' 
-  AZURE_WEBAPP_NAME_PROD: 'reatstracker-api-dhcecehuesbdf9b0'            
+  AZURE_WEBAPP_NAME_PROD: 'reatstracker-api'            
   DOTNET_VERSION: '8.0.x'
 
 jobs:
@@ -54,3 +54,4 @@ jobs:
         app-name: ${{ env.AZURE_WEBAPP_NAME_PROD }}
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         package: ./publish
+        
