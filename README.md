@@ -1,5 +1,7 @@
 **A RESTful Web API for tracking job applications and companies, built with .NET 8.**
 
+[![Docker CI](https://github.com/vzalxndr/reats-tracker/actions/workflows/docker-ci.yml/badge.svg?branch=main)](https://github.com/vzalxndr/reats-tracker/actions/workflows/docker-ci.yml)
+
 This is the backend service for the ReatsTracker ecosystem.
 
 ## 🛠 Tech Stack
