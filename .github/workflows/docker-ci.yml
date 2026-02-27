@@ -1,0 +1,20 @@
+name: Docker CI
+
+# Run when pushing to main and when creating Pull Requests
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Trying to assemble the image. If the code has errors, the step will fail
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag reatstracker-api:test
