@@ -9,7 +9,7 @@ This is the backend service for the ReatsTracker ecosystem.
 * **Infrastructure:** Docker, Terraform (Azure), GitHub Actions (CI/CD)
 
 ## 📦 Related Projects (Clients)
-[ReatsTracker Desktop (WPF)](https://github.com/ТВОЙ_НИК/reats-tracker-desktop) - Windows Desktop Client
+[ReatsTracker Desktop (WPF)](https://github.com/vzalxndr/reats-tracker-desktop) - Windows Desktop Client
 
 ## 🚀 How to Run Locally
 
