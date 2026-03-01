@@ -18,7 +18,7 @@ This is the backend service for the ReatsTracker ecosystem.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/vzalxndr/reats-tracker-api.git
+   git clone https://github.com/vzalxndr/reats-tracker.git
    ```
 
 2. Start the database and pgAdmin using Docker Compose:
