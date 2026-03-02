@@ -42,8 +42,11 @@ resource "azurerm_linux_web_app" "app" {
   }
 
 # Immediately set the environment variables
-  app_settings = {
-    "ConnectionStrings__DefaultConnection" = var.db_connection_string
+app_settings = {
+    "ConnectionStrings__DefaultConnection"       = var.db_connection_string
+    "APPINSIGHTS_INSTRUMENTATIONKEY"             = azurerm_application_insights.appinsights.instrumentation_key
+    "APPLICATIONINSIGHTS_CONNECTION_STRING"      = azurerm_application_insights.appinsights.connection_string
+    "ApplicationInsightsAgent_EXTENSION_VERSION" = "~3" 
   }
 }
 
@@ -52,4 +55,22 @@ variable "db_connection_string" {
   type        = string
   description = "Connection string for Neon PostgreSQL"
   sensitive   = true 
+}
+
+# Creating a Log Analytics Workspace
+resource "azurerm_log_analytics_workspace" "law" {
+  name                = "reatstracker-staging-law"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30 # Keep logs for 30 days
+}
+
+# Create Application Insights 
+resource "azurerm_application_insights" "appinsights" {
+  name                = "reatstracker-staging-ai"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  workspace_id        = azurerm_log_analytics_workspace.law.id
+  application_type    = "web"
 }
