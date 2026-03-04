@@ -40,7 +40,7 @@ This project features an Enterprise-grade DevOps pipeline:
 
 ## 🚀 How to Run Locally
 
-### Option 1: Using .NET CLI & Docker Compose (Development)
+### Option 1: Using .NET CLI & Docker Compose
 
 1. Clone the repository:
    ```bash
