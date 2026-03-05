@@ -55,4 +55,18 @@ public class CompaniesController:ControllerBase
 
         return Ok(readDto); 
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var company = await _db.Companies.FindAsync(id);
+        if (company == null)
+        {
+            return NotFound();
+        }
+        
+        _db.Remove(company);
+        await _db.SaveChangesAsync();
+        return NoContent();
+    }
 }

@@ -11,4 +11,16 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        // cascade deletion 
+        modelBuilder.Entity<Vacancy>()
+            .HasOne(v => v.Company)
+            .WithMany(c => c.Vacancies)
+            .HasForeignKey(v => v.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade); 
+    }
 }
