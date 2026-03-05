@@ -38,6 +38,10 @@ jobs:
         dotnet build ReatsTracker.Api/ReatsTracker.Api.csproj --configuration Release --no-restore
         dotnet publish ReatsTracker.Api/ReatsTracker.Api.csproj --configuration Release --no-build --output ./publish
 
+    # --- RUN TESTS ---
+    - name: Run Unit Tests
+      run: dotnet test ReatsTracker.Tests/ReatsTracker.Tests.csproj --configuration Release --verbosity normal
+
     # --- DEPLOY ON STAGING ---
     - name: Deploy to Staging
       uses: azure/webapps-deploy@v3
