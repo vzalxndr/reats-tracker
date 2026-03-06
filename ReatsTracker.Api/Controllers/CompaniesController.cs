@@ -69,4 +69,20 @@ public class CompaniesController:ControllerBase
         await _db.SaveChangesAsync();
         return NoContent();
     }
+    
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, CompanyCreateDto dto)
+    {
+        var company = await _db.Companies.FindAsync(id);
+        if (company == null)
+        {
+            return NotFound();
+        }
+        
+        company.Name = dto.Name;
+        company.Website = dto.Website;
+        
+        await _db.SaveChangesAsync();
+        return NoContent();
+    }
 }
